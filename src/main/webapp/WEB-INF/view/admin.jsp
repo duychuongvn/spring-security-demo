@@ -1,4 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <%@page session="true"%>
 <html>
 <body>
@@ -14,6 +15,10 @@
 		<h2>Welcome : ${pageContext.request.remoteUser}</h2>
 	</c:if>
  	-->
+
+	<span><a href="/main">Main Page</a></span>
+
+
 
 </body>
 </html>

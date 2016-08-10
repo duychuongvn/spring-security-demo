@@ -25,13 +25,17 @@ public class EncodedUserServiceImpl implements UserDetailsService, InitializingB
     private void initUsers() {
         UserDto userenabled = new UserDto("userenabled", standardPasswordEncoder.encode("12345"), true, true, true, true);
         userenabled.addRole("ROLE_ADMIN");
+        userenabled.addRole("ROLE_USER");
         UserDto userdisabled = new UserDto("userdisabled", standardPasswordEncoder.encode("12345"), false, true, true, true);
         userdisabled.addRole("ROLE_ADMIN");
         UserDto userlocked = new UserDto("userlocked", standardPasswordEncoder.encode("12345"), true, false, true, true);
         userlocked.addRole("ROLE_ADMIN");
+        UserDto usernormal = new UserDto("usernormal", standardPasswordEncoder.encode("12345"), true, true, true, true);
+        usernormal.addRole("ROLE_USER");
         this.userDtos.add(userenabled);
         this.userDtos.add(userdisabled);
         this.userDtos.add(userlocked);
+        this.userDtos.add(usernormal);
     }
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

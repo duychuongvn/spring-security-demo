@@ -15,7 +15,7 @@ public class HelloController {
 		ModelAndView model = new ModelAndView();
 		model.addObject("title", "Spring Security Hello World");
 		model.addObject("message", "This is welcome page!");
-		model.setViewName("hello");
+		model.setViewName("index");
 		return model;
 
 	}
@@ -39,10 +39,39 @@ public class HelloController {
 		System.out.println("======== Loading adminPage()");
 		ModelAndView model = new ModelAndView();
 		model.addObject("title", "Spring Security Hello World");
-		model.addObject("message", "This is protected page!");
+		model.addObject("message", "This is admin page!");
 		model.setViewName("admin");
 
 		return model;
+
+	}
+	@RequestMapping(value = "/main", method = RequestMethod.GET)
+	public ModelAndView homePage() {
+
+		System.out.println("======== Loading userPage()");
+		ModelAndView model = new ModelAndView();
+		model.addObject("title", "Spring Security Hello World");
+		model.addObject("message", "This is main page!");
+		model.setViewName("main");
+
+		return model;
+
+	}
+	@RequestMapping(value = "/user", method = RequestMethod.GET)
+	public ModelAndView helloPage() {
+
+		System.out.println("======== Loading helloPage()");
+		ModelAndView model = new ModelAndView();
+		model.addObject("title", "Spring Security Hello World");
+		model.addObject("message", "This is user page!");
+		model.setViewName("user");
+
+		return model;
+
+	}
+	@RequestMapping(value = "/denied", method = RequestMethod.GET)
+	public String deniedPage() {
+		return "denied";
 
 	}
 }

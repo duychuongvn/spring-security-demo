@@ -12,9 +12,16 @@
     <!-- -->
     <!--</http>-->
 
-    <http auto-config="false">
-        <intercept-url pattern="/admin**" access="ROLE_ADMIN"/>
+    <http auto-config="false" use-expressions="true" access-denied-page="/denied">
 
+        <intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/main" access="isAuthenticated()"/>
+        <intercept-url pattern="/user" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/home" access="permitAll"/>
+        <intercept-url pattern="/login" access="permitAll"/>
+        <intercept-url pattern="/denied" access="permitAll"/>
+        <intercept-url pattern="/" access="permitAll"/>
+        <intercept-url pattern="/*" access="denyAll"/>
         <!--<form-login login-page="/login" login-processing-url="/j_spring_security_check"-->
                      <!--username-parameter="username" password-parameter="password"-->
                      <!--authentication-failure-url="/login?error" default-target-url="/admin"-->
@@ -24,7 +31,7 @@
                     username-parameter="username" password-parameter="password"
                     authentication-success-handler-ref="loginSuccessHandler"
                     authentication-failure-handler-ref="loginFailureHandler"
-                    always-use-default-target="false"/>
+                    always-use-default-target="false" />
         <logout logout-url="/logout" logout-success-url="/login"></logout>
     </http>
 
@@ -46,7 +53,7 @@
     <beans:bean id="encodedUserServiceImpl" class="com.github.hvcntt.service.user.EncodedUserServiceImpl"></beans:bean>
 
     <beans:bean id="loginSuccessHandler" class="com.github.hvcntt.security.LoginSuccessHandler">
-        <beans:property name="defaultTargetUrl" value="/admin"></beans:property>
+        <beans:property name="defaultTargetUrl" value="/main"></beans:property>
     </beans:bean>
     <beans:bean id="loginFailureHandler" class="com.github.hvcntt.security.LoginFailureHandler">
         <beans:property name="defaultFailureUrl" value="/login"/>

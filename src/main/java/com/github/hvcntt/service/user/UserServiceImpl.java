@@ -24,13 +24,17 @@ public class UserServiceImpl implements UserDetailsService, InitializingBean {
     private void initUsers() {
         UserDto userenabled = new UserDto("userenabled", "12345", true, true, true, true);
         userenabled.addRole("ROLE_ADMIN");
+        userenabled.addRole("ROLE_USER");
         UserDto userdisabled = new UserDto("userdisabled", "12345", false, true, true, true);
         userdisabled.addRole("ROLE_ADMIN");
         UserDto userlocked = new UserDto("userlocked", "12345", true, false, true, true);
         userlocked.addRole("ROLE_ADMIN");
+        UserDto usernormal = new UserDto("usernormal", "12345", true, false, true, true);
+        usernormal.addRole("ROLE_USER");
         this.userDtos.add(userenabled);
         this.userDtos.add(userdisabled);
         this.userDtos.add(userlocked);
+        this.userDtos.add(usernormal);
     }
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
