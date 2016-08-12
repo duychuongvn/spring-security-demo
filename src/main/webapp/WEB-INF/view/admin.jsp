@@ -16,7 +16,7 @@
 	</c:if>
  	-->
 
-	<span><a href="/main">Main Page</a></span>
+	<span><a href="<%=request.getContextPath()%>/main">Main Page</a></span>
 
 
 

@@ -1,5 +1,7 @@
 package com.github.hvcntt.service.user;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,7 +18,7 @@ import java.util.List;
  * Created by huynhduychuong on 8/8/2016.
  */
 public class UserServiceImpl implements UserDetailsService, InitializingBean {
-
+    private Logger logger = LoggerFactory.getLogger(EncodedUserServiceImpl.class);
 
     private List<UserDto> userDtos = new ArrayList<UserDto>();
 
@@ -29,7 +31,7 @@ public class UserServiceImpl implements UserDetailsService, InitializingBean {
         userdisabled.addRole("ROLE_ADMIN");
         UserDto userlocked = new UserDto("userlocked", "12345", true, false, true, true);
         userlocked.addRole("ROLE_ADMIN");
-        UserDto usernormal = new UserDto("usernormal", "12345", true, false, true, true);
+        UserDto usernormal = new UserDto("usernormal", "12345", true, true, true, true);
         usernormal.addRole("ROLE_USER");
         this.userDtos.add(userenabled);
         this.userDtos.add(userdisabled);
@@ -40,6 +42,7 @@ public class UserServiceImpl implements UserDetailsService, InitializingBean {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         for (UserDto userDto : userDtos) {
             if (userDto.getUsername().equalsIgnoreCase(username)) {
+                logger.info("========== User Info: {}", userDto);
                 List<GrantedAuthority> grantedAuthorities = getGrantedAuthorities(userDto);
                 return new User(userDto.getUsername(), userDto.getPassword(), userDto.isEnabled(), userDto.isAccountNonExpired(), userDto.isCredentialsNonExpired(),
                         userDto.isAccountNonLocked(), grantedAuthorities);

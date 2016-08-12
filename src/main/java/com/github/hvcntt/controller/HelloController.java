@@ -1,10 +1,16 @@
 package com.github.hvcntt.controller;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class HelloController {
@@ -54,6 +60,13 @@ public class HelloController {
 		model.addObject("message", "This is main page!");
 		model.setViewName("main");
 
+		List<String> menu = new ArrayList<String>();
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		for(GrantedAuthority grantedAuthority : userDetails.getAuthorities()) {
+			if("ROLE_ADMIN".equals(grantedAuthority.getAuthority())) {
+				menu.add("/admin");
+			}
+		}
 		return model;
 
 	}

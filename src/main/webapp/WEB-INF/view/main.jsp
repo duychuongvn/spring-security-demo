@@ -20,10 +20,10 @@
  	-->
 <ul>
   <sec:authorize access="hasRole('ROLE_ADMIN')">
-    <li><a href="/admin">Admin</a></li>
+    <li><a href="<%=request.getContextPath()%>/admin">Admin</a></li>
   </sec:authorize>
   <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
-    <li><a href="/user">User</a></li>
+    <li><a href="<%=request.getContextPath()%>/user">User</a></li>
   </sec:authorize>
 </ul>
 </body>

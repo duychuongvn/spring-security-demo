@@ -13,6 +13,6 @@
 <body>
 
    <div><span>This is default page, any one can access</span></div>
-    <span><a href="/login">Login</a></span>
+    <span><a href="<%=request.getContextPath()%>/login">Login</a></span>
 </body>
 </html>

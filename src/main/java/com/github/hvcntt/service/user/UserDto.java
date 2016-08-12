@@ -23,6 +23,19 @@ public class UserDto {
         this.accountNonExpired = accountNonExpired;
     }
 
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", enabled=" + enabled +
+                ", accountNonLocked=" + accountNonLocked +
+                ", credentialsNonExpired=" + credentialsNonExpired +
+                ", accountNonExpired=" + accountNonExpired +
+                ", roles=" + roles +
+                '}';
+    }
+
     public List<String> getRoles() {
         return roles;
     }

@@ -13,6 +13,6 @@
 <body>
     <span>You are not authorized to access this page</span>
    <br>
-<span><a href="/main">Main Page</a></span>
+<span><a href="<%=request.getContextPath()%>/main">Main Page</a></span>
 </body>
 </html>

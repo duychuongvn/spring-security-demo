@@ -1,5 +1,7 @@
 package com.github.hvcntt.service.user;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,6 +20,7 @@ import java.util.List;
  */
 public class EncodedUserServiceImpl implements UserDetailsService, InitializingBean {
 
+    private Logger logger = LoggerFactory.getLogger(EncodedUserServiceImpl.class);
     @Autowired
     private StandardPasswordEncoder standardPasswordEncoder;
     private List<UserDto> userDtos = new ArrayList<UserDto>();
@@ -41,6 +44,7 @@ public class EncodedUserServiceImpl implements UserDetailsService, InitializingB
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         for (UserDto userDto : userDtos) {
             if (userDto.getUsername().equalsIgnoreCase(username)) {
+                logger.info("========== User Info: {}", userDto);
                 List<GrantedAuthority> grantedAuthorities = getGrantedAuthorities(userDto);
                 return new User(userDto.getUsername(), userDto.getPassword(), userDto.isEnabled(), userDto.isAccountNonExpired(), userDto.isCredentialsNonExpired(),
                         userDto.isAccountNonLocked(), grantedAuthorities);
